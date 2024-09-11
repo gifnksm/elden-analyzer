@@ -20,22 +20,23 @@ Choose any one of the methods below that best suits your needs.
 
 Executable binaries are available for download on the [GitHub Release page].
 
-You can also install the binary with [`cargo-binstall`] command.
-
-```console
-# Install pre-built binary
-$ cargo binstall elden-analyzer
-```
-
-[GitHub Release page]: https://github.com/gifnksm/elden-analyzer/releases/
-[`cargo-binstall`]: https://github.com/cargo-bins/cargo-binstall
-
 ### Build from source using Rust
 
-To build elden-analyzer executable from the source, you must have the Rust toolchain installed.
+To build `elden-analyzer` executable from the source, you must have the Rust toolchain installed.
 To install the rust toolchain, follow [this guide](https://www.rust-lang.org/tools/install).
 
-Once you have installed Rust, the following command can be used to build and install elden-analyzer:
+`elden-analyzer` also requires `tesseract`, `leptonica` and `ffmpeg` libraries.
+To install those libraries, run the following commands:
+
+```console
+# Debian or Ubuntu
+$ apt-get install -y libtesseract-dev libleptonica-dev clang libavcodec-dev libavformat-dev libavutil-dev libswscale-dev pkg-config
+
+# Arch Linux
+$ pacman -S tesseract leptonica ffmpeg
+```
+
+Once you have installed Rust and libraries, the following command can be used to build and install `elden-analyzer`:
 
 ```console
 # Install released version
@@ -44,14 +45,6 @@ $ cargo install elden-analyzer
 # Install latest version
 $ cargo install --git https://github.com/gifnksm/elden-analyzer.git elden-analyzer
 ```
-
-## Minimum supported Rust version (MSRV)
-
-The minimum supported Rust version is **Rust 1.74.0**.
-At least the last 3 versions of stable Rust are supported at any given time.
-
-While a crate is a pre-release status (0.x.x) it may have its MSRV bumped in a patch release.
-Once a crate has reached 1.x, any MSRV bump will be accompanied by a new minor version.
 
 ## License
 
