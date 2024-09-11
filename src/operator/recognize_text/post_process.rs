@@ -139,7 +139,7 @@ fn item_text(text: &str, conf: Confidence) -> Recognition {
             ),
             (Regex::new(r"[錠銃錯錨]").unwrap(), "銛"),
             (Regex::new(r"潰").unwrap(), "漬"),
-            (Regex::new(r"[鐙鐘]").unwrap(), "鎧"),
+            (Regex::new(r"[鐙鐘鏡]").unwrap(), "鎧"),
             (Regex::new(r"[縁繰緻]").unwrap(), "緑"),
             (Regex::new(r"[蝦智蜜暖唱]").unwrap(), "帽"),
             (Regex::new(r"[嚢嘆]").unwrap(), "喪"),
