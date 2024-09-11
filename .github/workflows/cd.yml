@@ -11,7 +11,7 @@ on:
 
 jobs:
   cd:
-    uses: gifnksm/rust-template/.github/workflows/reusable-cd.yml@main
+    uses: ./.github/workflows/reusable-cd.yml
     with:
       upload-dist-archive: true
     permissions:

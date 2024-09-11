@@ -5,7 +5,8 @@ members = ["xtask"]
 name = "elden-analyzer"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.74.0"
+rust-version = "1.80.0"
+publish = false
 description = "Analyze videos of Eldenring playing and extract information."
 readme = "README.md"
 repository = "https://github.com/gifnksm/elden-analyzer"
@@ -20,8 +21,8 @@ style = "flat-square"
 [package.metadata.cargo-sync-rdme.badge.badges]
 maintenance = true
 license = { link = "#license" }
-crates-io = true
-docs-rs = true
+# crates-io = true
+# docs-rs = true
 rust-version = true
 github-actions = { workflows = "ci.yml" }
 codecov = true
@@ -31,7 +32,28 @@ bin-dir = "{ bin }{ binary-ext }"
 pkg-fmt = "tgz"
 
 [dependencies]
-clap = { version = "4.5", features = ["derive"] }
+chrono = "0.4.38"
+clap = { version = "4.5.17", features = ["derive"] }
+color-eyre = "0.6.3"
+custom-debug = { version = "0.6.1", package = "custom_debug_derive" }
+custom_debug = { version = "0.6.1", package = "custom_debug_derive" }
+ffmpeg = { package = "ffmpeg-next", version = "7.0.4", default-features = false, features = ["codec", "format", "software-scaling"] }
+# imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
+imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
+indicatif = "0.17.8"
+libc = "0.2.158"
+lockfree-object-pool = "0.1.6"
+num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
+num-traits = "0.2.19"
+rayon = "1.10.0"
+regex = "1.10.6"
+sdl2 = { version = "0.36", features = ["use-vcpkg"] }
+tesseract-plumbing = { version = "0.11.0", default-features = false }
+thiserror = "1.0.63"
+tracing = "0.1.40"
+tracing-error = "0.2.0"
+tracing-indicatif = "0.3.6"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 
 [dev-dependencies]
 [build-dependencies]
@@ -41,5 +63,15 @@ clap = { version = "4.5", features = ["derive"] }
 [profile.release]
 strip = true
 
+[profile.release-debug]
+inherits = "release"
+debug = true
+
 [badges]
 maintenance = { status = "experimental" }
+
+[package.metadata.vcpkg]
+git = "https://github.com/microsoft/vcpkg"
+branch = "master"
+dependencies = ["ffmpeg", "sdl2"]
+

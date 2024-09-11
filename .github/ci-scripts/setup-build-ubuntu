@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eux
+
+sudo apt-get update -y
+
+# tesseract-sys
+sudo apt-get install -y libtesseract-dev libleptonica-dev pkg-config
+
+# ffmpeg-next
+sudo apt-get install -y clang libavcodec-dev libavformat-dev libavutil-dev libswscale-dev pkg-config

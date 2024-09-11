@@ -4,9 +4,7 @@
 <!-- cargo-sync-rdme badge [[ -->
 [![Maintenance: experimental](https://img.shields.io/badge/maintenance-experimental-blue.svg?style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-badges-section)
 [![License: MIT OR Apache-2.0](https://img.shields.io/crates/l/elden-analyzer.svg?style=flat-square)](#license)
-[![crates.io](https://img.shields.io/crates/v/elden-analyzer.svg?logo=rust&style=flat-square)](https://crates.io/crates/elden-analyzer)
-[![docs.rs](https://img.shields.io/docsrs/elden-analyzer.svg?logo=docs.rs&style=flat-square)](https://docs.rs/elden-analyzer)
-[![Rust: ^1.74.0](https://img.shields.io/badge/rust-^1.74.0-93450a.svg?logo=rust&style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
+[![Rust: ^1.80.0](https://img.shields.io/badge/rust-^1.80.0-93450a.svg?logo=rust&style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
 [![GitHub Actions: CI](https://img.shields.io/github/actions/workflow/status/gifnksm/elden-analyzer/ci.yml.svg?label=CI&logo=github&style=flat-square)](https://github.com/gifnksm/elden-analyzer/actions/workflows/ci.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/gifnksm/elden-analyzer.svg?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/gifnksm/elden-analyzer)
 <!-- cargo-sync-rdme ]] -->

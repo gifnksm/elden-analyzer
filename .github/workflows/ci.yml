@@ -12,7 +12,7 @@ env:
 
 jobs:
   ci:
-    uses: gifnksm/rust-template/.github/workflows/reusable-ci.yml@main
+    uses: ./.github/workflows/reusable-ci.yml
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
