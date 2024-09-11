@@ -20,6 +20,8 @@ Choose any one of the methods below that best suits your needs.
 
 Executable binaries are available for download on the [GitHub Release page].
 
+[GitHub Release page]: https://github.com/gifnksm/elden-analyzer/releases/
+
 ### Build from source using Rust
 
 To build `elden-analyzer` executable from the source, you must have the Rust toolchain installed.
