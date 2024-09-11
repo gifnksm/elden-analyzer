@@ -1,1 +1,5 @@
 /target
+/log
+/output
+/saved_output
+**/*.traineddata

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eu
+
+timestamp="$(date '+%Y-%m-%d_%H-%M-%S')"
+output_dir="output"
+
+number="$1"
+if [[ "${number}" == DLC_* ]]; then
+    records_dir="/mnt/d/Records/ELDEN RING DLC"
+    file_prefix="${number#DLC_}"
+else
+    records_dir="/mnt/d/Records/ELDEN RING"
+    file_prefix="${number}_"
+fi
+
+set -x
+cargo run --profile release-debug -- \
+    analyze \
+    "${records_dir}/${file_prefix}"* \
+    --output-span "${output_dir}/${number}_${timestamp}.txt" \
+    --output-tsv "${output_dir}/${number}_${timestamp}.tsv"
