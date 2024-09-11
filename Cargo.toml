@@ -37,7 +37,6 @@ clap = { version = "4.5.17", features = ["derive"] }
 color-eyre = "0.6.3"
 custom-debug = { version = "0.6.1", package = "custom_debug_derive" }
 custom_debug = { version = "0.6.1", package = "custom_debug_derive" }
-ffmpeg = { package = "ffmpeg-next", version = "7.0.4", default-features = false, features = ["codec", "format", "software-scaling"] }
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
 indicatif = "0.17.8"
@@ -54,6 +53,12 @@ tracing = "0.1.40"
 tracing-error = "0.2.0"
 tracing-indicatif = "0.3.6"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+
+[target.'cfg(windows)'.dependencies]
+ffmpeg = { package = "ffmpeg-next", version = "7.0.4", default-features = false, features = ["codec", "format", "software-scaling", "static"] }
+
+[target.'cfg(not(windows))'.dependencies]
+ffmpeg = { package = "ffmpeg-next", version = "7.0.4", default-features = false, features = ["codec", "format", "software-scaling"] }
 
 [dev-dependencies]
 [build-dependencies]
@@ -73,5 +78,7 @@ maintenance = { status = "experimental" }
 [package.metadata.vcpkg]
 git = "https://github.com/microsoft/vcpkg"
 branch = "master"
-dependencies = ["ffmpeg", "sdl2"]
+dependencies = ["ffmpeg[avcodec,avformat,swscale]", "sdl2", "leptonica", "tesseract"]
 
+[package.metadata.vcpkg.target]
+x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md" }
