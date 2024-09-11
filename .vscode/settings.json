@@ -1,0 +1,11 @@
+{
+    "files.readonlyInclude": {
+        "output/**/*.txt": true,
+        "output/**/*.tsv": true,
+        "saved_output/**/*.txt": true,
+        "saved_output/**/*.tsv": true,
+    },
+    "[tsv]": {
+        "editor.tabSize": 28
+    }
+}
