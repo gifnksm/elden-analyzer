@@ -186,9 +186,9 @@ fn new_extractor(
     Some(Box::new(e) as _)
 }
 
-const SIDE_ITEM_X0_IN_FRAME: i32 = 1384;
+const SIDE_ITEM_X0_IN_FRAME: i32 = 1364;
 const SIDE_ITEM0_Y0_IN_FRAME: i32 = 822;
-const SIDE_ITEM_WIDTH: i32 = 536;
+const SIDE_ITEM_WIDTH: i32 = 556;
 const SIDE_ITEM_HEIGHT: i32 = 44;
 
 const SIDE_ITEM_BOX_IN_FRAME: [ClipRect; COUNT] = {
@@ -354,7 +354,7 @@ const TEXT_IN_BOX: &[(ClipRect, PostProcess, TextAlign)] = {
 
     &[
         (
-            rect((1385, 838), (1710, 865)),
+            rect((1365, 838), (1710, 865)),
             PostProcess::ItemText,
             TextAlign::Right,
         ),
