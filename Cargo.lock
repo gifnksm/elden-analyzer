@@ -732,7 +732,7 @@ dependencies = [
 [[package]]
 name = "imageproc"
 version = "0.26.0"
-source = "git+https://github.com/image-rs/imageproc.git#c153f57f4c3eefd7fd33a35481422a15cf91188e"
+source = "git+https://github.com/image-rs/imageproc.git#54573dabc28e0fdd8f978843e253d06bc763cf14"
 dependencies = [
  "ab_glyph",
  "approx",
