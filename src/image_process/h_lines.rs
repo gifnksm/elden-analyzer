@@ -1,10 +1,11 @@
+use elden_analyzer_collections::Vec2d;
 use imageproc::{
     filter,
     gradients::{horizontal_sobel, vertical_sobel},
     image::{GrayImage, RgbImage},
 };
 
-use crate::{collections::Vec2d, geometry::Neighbor, util::ImageLogger};
+use crate::{geometry::Neighbor, util::ImageLogger};
 
 #[derive(Debug, Clone, Copy)]
 pub enum HLineType {

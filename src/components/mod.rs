@@ -1,6 +1,7 @@
 use std::{any::Any, array, fmt, iter};
 
 use color_eyre::eyre;
+use elden_analyzer_collections::array_from_iter;
 use imageproc::rect::Rect;
 
 use crate::{
@@ -11,13 +12,6 @@ use crate::{
 
 mod main_item;
 mod side_item;
-
-fn array_from_iter<T, const N: usize>(it: impl IntoIterator<Item = T>) -> [T; N] {
-    let mut it = it.into_iter();
-    let arr = array::from_fn(|_| it.next().unwrap());
-    assert!(it.next().is_none());
-    arr
-}
 
 pub type DetectionPayload = Box<dyn Any + Send + Sync + 'static>;
 

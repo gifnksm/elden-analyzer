@@ -543,6 +543,7 @@ dependencies = [
  "clap",
  "color-eyre",
  "custom_debug_derive",
+ "elden-analyzer-collections",
  "ffmpeg-next",
  "imageproc",
  "indicatif",
@@ -560,6 +561,10 @@ dependencies = [
  "tracing-indicatif",
  "tracing-subscriber",
 ]
+
+[[package]]
+name = "elden-analyzer-collections"
+version = "0.1.0"
 
 [[package]]
 name = "encode_unicode"

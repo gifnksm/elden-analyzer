@@ -1,16 +1,28 @@
 [workspace]
-members = ["xtask"]
+members = [ "crates/collections", "xtask" ]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+publish = false
+rust-version = "1.80.0"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/gifnksm/elden-analyzer"
+
+[workspace.dependencies]
+elden-analyzer-collections = { version = "0.1.0", path = "crates/collections" }
 
 [package]
 name = "elden-analyzer"
-version = "0.1.0"
-edition = "2021"
-rust-version = "1.80.0"
-publish = false
-description = "Analyze videos of Eldenring playing and extract information."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Analyze videos of ELDEN RING playing and extract information."
 readme = "README.md"
-repository = "https://github.com/gifnksm/elden-analyzer"
-license = "MIT OR Apache-2.0"
+repository.workspace = true
+license.workspace = true
 keywords = []
 categories = []
 
@@ -26,6 +38,7 @@ license = { link = "#license" }
 rust-version = true
 github-actions = { workflows = "ci.yml" }
 codecov = true
+
 [package.metadata.binstall]
 pkg-url = "{ repo }/releases/download/v{ version }/{ name }-v{ version }-{ target }.{ archive-format }"
 bin-dir = "{ bin }{ binary-ext }"
@@ -37,6 +50,7 @@ clap = { version = "4.5.21", features = ["derive"] }
 color-eyre = "0.6.3"
 custom-debug = { version = "0.6.2", package = "custom_debug_derive" }
 custom_debug = { version = "0.6.2", package = "custom_debug_derive" }
+elden-analyzer-collections.workspace = true
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
 indicatif = "0.17.9"

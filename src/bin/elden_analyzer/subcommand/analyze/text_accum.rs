@@ -10,11 +10,11 @@ use std::{
 use color_eyre::eyre;
 
 use elden_analyzer::{
-    collections::SeqIter,
     components::{ComponentContainer, ExtractedTexts},
     operator::Recognition,
     video_capture::{Duration, FramePosition},
 };
+use elden_analyzer_collections::SeqIter;
 use num_rational::Ratio;
 
 use super::text_recognize::{self};
