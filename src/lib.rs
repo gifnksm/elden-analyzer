@@ -1,5 +1,4 @@
 pub mod algorithm;
-pub mod collections;
 pub mod components;
 pub mod geometry;
 pub mod image_process;

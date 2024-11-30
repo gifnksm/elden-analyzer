@@ -1,6 +1,6 @@
 use std::ops::{Index, IndexMut};
 
-use imageproc::image::GrayImage;
+// use imageproc::image::GrayImage;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Vec2d<T> {
@@ -82,12 +82,6 @@ impl<T> IndexMut<(usize, usize)> for Vec2d<T> {
     fn index_mut(&mut self, (x, y): (usize, usize)) -> &mut Self::Output {
         let idx = self.get_idx(x, y);
         &mut self.data[idx]
-    }
-}
-
-impl Vec2d<u8> {
-    pub fn into_gray_image(self) -> GrayImage {
-        GrayImage::from_raw(self.width as u32, self.height as u32, self.data).unwrap()
     }
 }
 

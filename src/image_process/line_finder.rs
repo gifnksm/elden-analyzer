@@ -1,6 +1,6 @@
 use imageproc::{
     filter,
-    image::{buffer::ConvertBuffer as _, Luma, RgbImage},
+    image::{buffer::ConvertBuffer as _, GrayImage, Luma, RgbImage},
     rect::Rect,
 };
 
@@ -27,8 +27,13 @@ impl LineFinder {
             .in_scope(|| logger.log(frame.to_min_gray_image_within(clip_rect).unwrap()));
         let gray_image = tracing::trace_span!("median")
             .in_scope(|| logger.log(filter::median_filter(&gray_image, 5, 0)));
-        let gray_image = tracing::trace_span!("lines")
-            .in_scope(|| logger.log(self.h_canny.run(ty, &gray_image).into_gray_image()));
+        let gray_image = tracing::trace_span!("lines").in_scope(|| {
+            let data = self.h_canny.run(ty, &gray_image);
+            let image =
+                GrayImage::from_raw(data.width() as u32, data.height() as u32, data.into_raw())
+                    .unwrap();
+            logger.log(image)
+        });
 
         let lines = tracing::trace_span!("find-line-segments").in_scope(|| {
             let lines = (0..)
