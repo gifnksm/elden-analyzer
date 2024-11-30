@@ -40,7 +40,7 @@ custom_debug = { version = "0.6.1", package = "custom_debug_derive" }
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
 indicatif = "0.17.9"
-libc = "0.2.161"
+libc = "0.2.167"
 lockfree-object-pool = "0.1.6"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
