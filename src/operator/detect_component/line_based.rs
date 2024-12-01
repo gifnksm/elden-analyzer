@@ -1,10 +1,10 @@
 use color_eyre::eyre;
-use imageproc::{drawing, rect::Rect};
+use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
+use imageproc::drawing;
 use num_rational::Ratio;
 use num_traits::ToPrimitive as _;
 
 use crate::{
-    geometry::ClipRect,
     image_process::{h_lines::HLineType, line_finder::LineFinder},
     util::ImageLogger,
     video_capture::Frame,
@@ -59,8 +59,11 @@ impl DetectComponent for LineBasedComponentDetector {
 
             let mut rgb_image = logger.log(frame.to_rgb_image_within(base_rect).unwrap());
             for (_ty, rect) in &self.horizontal_line_clip_rect {
-                let rect = Rect::at(rect.left() - base_rect.left(), rect.top() - base_rect.top())
-                    .of_size(rect.width(), rect.height());
+                let rect = imageproc::rect::Rect::at(
+                    rect.left() - base_rect.left(),
+                    rect.top() - base_rect.top(),
+                )
+                .of_size(rect.width(), rect.height());
                 drawing::draw_hollow_rect_mut(&mut rgb_image, rect, [255, 0, 0].into());
             }
 

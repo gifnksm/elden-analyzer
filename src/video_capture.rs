@@ -1,193 +1,19 @@
-use std::{fmt, path::Path, ptr, str::FromStr};
+use std::{path::Path, ptr};
 
+use elden_analyzer_kernel::types::{
+    rect::Rect,
+    time::{Duration, FramePosition, Timestamp, TimestampRange},
+};
 use ffmpeg::{
     codec, decoder, format, frame, media, rescale::TIME_BASE, software::scaling, threading, Packet,
     Stream,
 };
-use imageproc::{
-    image::{ImageBuffer, Luma, Pixel as _, Rgb},
-    rect::Rect,
-};
+use imageproc::image::{ImageBuffer, Luma, Pixel as _, Rgb};
 use num_rational::Ratio;
 use num_traits::Signed;
 use tracing::{debug, trace};
 
 use crate::traits::ToRatio;
-
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct Duration {
-    dur: Ratio<i64>,
-}
-
-impl fmt::Display for Duration {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let total_sec = self.dur.trunc().to_integer();
-        let msec = (self.dur.fract() * Ratio::from_integer(1000)).to_integer();
-        let hour = total_sec / 3600;
-        let min = (total_sec / 60) % 60;
-        let sec = total_sec % 60;
-        write!(f, "{hour:02}:{min:02}:{sec:02}.{msec:03}")
-    }
-}
-
-impl Duration {
-    pub fn new(dur: Ratio<i64>) -> Self {
-        Self { dur }
-    }
-
-    pub fn as_ratio(&self) -> Ratio<i64> {
-        self.dur
-    }
-
-    pub fn as_msec(&self) -> i64 {
-        (self.dur * Ratio::from_integer(1000)).to_integer()
-    }
-}
-
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct Timestamp {
-    ts: Ratio<i64>,
-}
-
-impl fmt::Display for Timestamp {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let total_sec = self.ts.trunc().to_integer();
-        let msec = (self.ts.fract() * Ratio::from_integer(1000)).to_integer();
-        let hour = total_sec / 3600;
-        let min = (total_sec / 60) % 60;
-        let sec = total_sec % 60;
-        write!(f, "{hour:02}:{min:02}:{sec:02}.{msec:03}")
-    }
-}
-
-#[derive(Debug, thiserror::Error)]
-pub enum TimestampParseError {
-    #[error("Invalid format")]
-    InvalidFormat,
-    #[error(transparent)]
-    ParseInt(#[from] std::num::ParseIntError),
-}
-
-impl FromStr for Timestamp {
-    type Err = TimestampParseError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut parts = s.split(':').rev();
-
-        let sec_parts = parts.next().ok_or(Self::Err::InvalidFormat)?;
-        let (sec, msec) = sec_parts.split_once('.').unwrap_or((sec_parts, "000"));
-        let sec = sec.parse::<i64>()?;
-        let msec = msec.parse::<i64>()?;
-
-        let min = if let Some(min_parts) = parts.next() {
-            min_parts.parse::<i64>()?
-        } else {
-            0
-        };
-
-        let hour = if let Some(hour_parts) = parts.next() {
-            hour_parts.parse::<i64>()?
-        } else {
-            0
-        };
-
-        if parts.next().is_some() {
-            return Err(Self::Err::InvalidFormat);
-        }
-
-        let ts = Timestamp::new(Ratio::new(
-            hour * 3600 * 1000 + min * 60 * 1000 + sec * 1000 + msec,
-            1000,
-        ));
-        Ok(ts)
-    }
-}
-
-impl Timestamp {
-    pub fn new(ts: Ratio<i64>) -> Self {
-        Self { ts }
-    }
-}
-
-impl std::ops::Sub for Timestamp {
-    type Output = Duration;
-
-    fn sub(self, rhs: Self) -> Self::Output {
-        Duration::new(self.ts - rhs.ts)
-    }
-}
-
-impl std::ops::Add<Duration> for Timestamp {
-    type Output = Self;
-
-    fn add(self, rhs: Duration) -> Self::Output {
-        Self::new(self.ts + rhs.dur)
-    }
-}
-
-#[derive(Debug, Clone, Copy)]
-pub enum TimestampRange {
-    Full,
-    Single(Timestamp),
-    Range(Timestamp, Timestamp),
-    RangeFrom(Timestamp),
-    RangeTo(Timestamp),
-}
-
-impl FromStr for TimestampRange {
-    type Err = TimestampParseError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        if let Some((start, end)) = s.split_once('-') {
-            let start = (!start.is_empty()).then(|| start.parse()).transpose()?;
-            let end = (!end.is_empty()).then(|| end.parse()).transpose()?;
-            match (start, end) {
-                (Some(start), Some(end)) => {
-                    if start <= end {
-                        return Ok(Self::Range(start, end));
-                    }
-                    return Err(Self::Err::InvalidFormat);
-                }
-                (Some(start), None) => return Ok(Self::RangeFrom(start)),
-                (None, Some(end)) => return Ok(Self::RangeTo(end)),
-                (None, None) => return Ok(Self::Full),
-            }
-        }
-
-        let ts = Timestamp::from_str(s)?;
-        Ok(Self::Single(ts))
-    }
-}
-
-#[derive(Debug, Default, Clone, Copy)]
-pub struct FramePosition {
-    idx: usize,
-    ts: Timestamp,
-}
-
-impl fmt::Display for FramePosition {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}[{}]", self.ts, self.idx)
-    }
-}
-
-impl FramePosition {
-    pub fn new(idx: usize, ts: Timestamp) -> Self {
-        Self { idx, ts }
-    }
-
-    pub fn index(&self) -> usize {
-        self.idx
-    }
-
-    pub fn timestamp(&self) -> Timestamp {
-        self.ts
-    }
-
-    pub fn next(&self, sec_per_frame: Duration) -> FramePosition {
-        Self::new(self.idx + 1, self.ts + sec_per_frame)
-    }
-}
 
 #[derive(custom_debug::Debug)]
 pub struct Frame {
@@ -399,14 +225,14 @@ impl VideoCapture {
     }
 
     pub fn seek(&mut self, ts: Timestamp) -> Result<(), ffmpeg::Error> {
-        let seek_ts = (ts.ts / TIME_BASE.to_ratio()).floor().to_integer();
+        let seek_ts = (ts.as_ratio() / TIME_BASE.to_ratio()).floor().to_integer();
         trace!(%ts, %seek_ts);
 
         self.ictx.seek(seek_ts, ..seek_ts)?;
         self.decoder.flush();
         self.packet_sent = false;
 
-        self.skip_until = Some(self.to_precise_frame_start(ts).ts);
+        self.skip_until = Some(self.to_precise_frame_start(ts).timestamp());
 
         Ok(())
     }
@@ -430,7 +256,7 @@ impl VideoCapture {
         };
         let end = self.to_precise_frame_end(end);
 
-        self.seek(start.ts)?;
+        self.seek(start.timestamp())?;
 
         let decoder = RangeDecoder {
             capture: self,
@@ -459,29 +285,29 @@ impl VideoCapture {
     }
 
     fn to_precise_frame_pos(&self, rough_ts: Timestamp) -> FramePosition {
-        let frame_idx = (rough_ts.ts * self.fps).round().to_integer() as usize;
+        let frame_idx = (rough_ts.as_ratio() * self.fps).round().to_integer() as usize;
         self.frame_pos_of_index(frame_idx)
     }
 
     pub fn to_precise_frame_start(&self, rough_ts: Timestamp) -> FramePosition {
         let precise_pos = self.to_precise_frame_pos(rough_ts);
-        if (rough_ts.ts - precise_pos.ts.ts).abs() < Ratio::new(1, 1000) {
+        if (rough_ts.as_ratio() - precise_pos.timestamp().as_ratio()).abs() < Ratio::new(1, 1000) {
             return precise_pos;
         }
 
         // If precise position is not close to enough, seek to the frame that contains the timestamp
-        let frame_idx = (rough_ts.ts * self.fps).floor().to_integer() as usize;
+        let frame_idx = (rough_ts.as_ratio() * self.fps).floor().to_integer() as usize;
         self.frame_pos_of_index(frame_idx)
     }
 
     pub fn to_precise_frame_end(&self, rough_ts: Timestamp) -> FramePosition {
         let precise_pos = self.to_precise_frame_pos(rough_ts);
-        if (rough_ts.ts - precise_pos.ts.ts).abs() < Ratio::new(1, 1000) {
+        if (rough_ts.as_ratio() - precise_pos.timestamp().as_ratio()).abs() < Ratio::new(1, 1000) {
             return precise_pos;
         }
 
         // If precise position is not close to enough, seek to the frame that contains the timestamp
-        let frame_idx = (rough_ts.ts * self.fps).ceil().to_integer() as usize;
+        let frame_idx = (rough_ts.as_ratio() * self.fps).ceil().to_integer() as usize;
         self.frame_pos_of_index(frame_idx)
     }
 
@@ -524,7 +350,7 @@ impl VideoCapture {
                     self.last_decoded = Some(pos);
 
                     if let Some(until) = self.skip_until {
-                        let end_ts = pos.ts + self.sec_per_frame();
+                        let end_ts = pos.timestamp() + self.sec_per_frame();
                         if end_ts <= until {
                             trace!(%pos, %end_ts, "skip frame");
                             continue;
@@ -651,7 +477,7 @@ impl RangeDecoder<'_> {
     pub fn decode_frame(&mut self, frame: &mut Frame) -> Result<bool, ffmpeg::Error> {
         match self.capture.decode_frame_inner()? {
             Some(pos) => {
-                if pos.ts >= self.end.ts {
+                if pos.timestamp() >= self.end.timestamp() {
                     self.capture.write_eof_frame(frame, Some(pos));
                     return Ok(false);
                 }
@@ -663,20 +489,5 @@ impl RangeDecoder<'_> {
                 Ok(false)
             }
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn parse_timestamp() {
-        fn p(s: &str) -> String {
-            s.parse::<Timestamp>().unwrap().to_string()
-        }
-        assert_eq!(p("01:23:45.678"), "01:23:45.678");
-        assert_eq!(p("01:23:45"), "01:23:45.000");
-        assert_eq!(p("3672"), "01:01:12.000");
     }
 }

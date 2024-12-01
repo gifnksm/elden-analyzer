@@ -1,5 +1,5 @@
 [package]
-name = "elden-analyzer-collections"
+name = "elden-analyzer-kernel"
 version.workspace = true
 edition.workspace = true
 publish.workspace = true
@@ -8,3 +8,5 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
+num-rational.workspace = true
+thiserror.workspace = true

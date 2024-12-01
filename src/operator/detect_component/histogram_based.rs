@@ -1,13 +1,11 @@
 use std::ops::RangeInclusive;
 
-use imageproc::{
-    image::{Luma, Pixel as _, Rgb, RgbImage},
-    rect::Rect,
-};
+use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
+use imageproc::image::{Luma, Pixel as _, Rgb, RgbImage};
 use num_rational::Ratio;
 use num_traits::ToPrimitive as _;
 
-use crate::{geometry::ClipRect, util::ImageLogger, video_capture::Frame};
+use crate::{util::ImageLogger, video_capture::Frame};
 
 #[derive(Debug)]
 pub struct HistogramBasedComponentDetectorBuilder {

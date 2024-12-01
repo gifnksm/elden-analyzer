@@ -544,6 +544,7 @@ dependencies = [
  "color-eyre",
  "custom_debug_derive",
  "elden-analyzer-collections",
+ "elden-analyzer-kernel",
  "ffmpeg-next",
  "imageproc",
  "indicatif",
@@ -555,7 +556,6 @@ dependencies = [
  "regex",
  "sdl2",
  "tesseract-plumbing",
- "thiserror 2.0.3",
  "tracing",
  "tracing-error",
  "tracing-indicatif",
@@ -565,6 +565,14 @@ dependencies = [
 [[package]]
 name = "elden-analyzer-collections"
 version = "0.1.0"
+
+[[package]]
+name = "elden-analyzer-kernel"
+version = "0.1.0"
+dependencies = [
+ "num-rational",
+ "thiserror 2.0.3",
+]
 
 [[package]]
 name = "encode_unicode"

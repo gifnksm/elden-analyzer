@@ -1,4 +1,4 @@
-use super::SeqBuf;
+use crate::seq_buf::SeqBuf;
 
 #[derive(Debug)]
 pub struct SeqIter<T, I> {

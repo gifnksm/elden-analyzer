@@ -1,6 +1,7 @@
 use std::ops::Range;
 
 use color_eyre::eyre;
+use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
 use imageproc::{
     contrast::{self, ThresholdType},
     distance_transform::Norm,
@@ -11,13 +12,12 @@ use imageproc::{
         GrayImage, Pixel,
     },
     morphology,
-    rect::Rect,
 };
 use tracing::trace;
 
 use crate::{
-    geometry::ClipRect, image_process::tesseract::Tesseract, operator::Confidence,
-    util::ImageLogger, video_capture::Frame,
+    image_process::tesseract::Tesseract, operator::Confidence, util::ImageLogger,
+    video_capture::Frame,
 };
 
 use super::{ExtractText, PostProcess, Recognition};

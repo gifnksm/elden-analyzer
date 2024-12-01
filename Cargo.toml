@@ -1,5 +1,5 @@
 [workspace]
-members = [ "crates/collections", "xtask" ]
+members = [ "crates/collections", "crates/kernel", "xtask" ]
 resolver = "2"
 
 [workspace.package]
@@ -11,7 +11,11 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/gifnksm/elden-analyzer"
 
 [workspace.dependencies]
-elden-analyzer-collections = { version = "0.1.0", path = "crates/collections" }
+elden-analyzer-collections = { path = "crates/collections" }
+elden-analyzer-kernel = { path = "crates/kernel" }
+num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
+num-traits = "0.2.19"
+thiserror = "2.0.3"
 
 [package]
 name = "elden-analyzer"
@@ -26,7 +30,6 @@ license.workspace = true
 keywords = []
 categories = []
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [package.metadata.cargo-sync-rdme.badge]
 style = "flat-square"
 
@@ -51,18 +54,18 @@ color-eyre = "0.6.3"
 custom-debug = { version = "0.6.2", package = "custom_debug_derive" }
 custom_debug = { version = "0.6.2", package = "custom_debug_derive" }
 elden-analyzer-collections.workspace = true
+elden-analyzer-kernel.workspace = true
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
 indicatif = "0.17.9"
 libc = "0.2.167"
 lockfree-object-pool = "0.1.6"
-num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
-num-traits = "0.2.19"
+num-rational.workspace = true
+num-traits.workspace = true
 rayon = "1.10.0"
 regex = "1.11.1"
 sdl2 = { version = "0.36", features = ["use-vcpkg"] }
 tesseract-plumbing = { version = "0.11.0", default-features = false }
-thiserror = "2.0.3"
 tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-indicatif = "0.3.6"
