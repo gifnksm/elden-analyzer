@@ -1,9 +1,10 @@
 use std::{fmt, ops};
 
 use color_eyre::eyre;
+use elden_analyzer_video::capture::Frame;
 use num_rational::Ratio;
 
-use crate::{image_process::tesseract::Tesseract, video_capture::Frame};
+use crate::image_process::tesseract::Tesseract;
 
 pub use self::{post_process::*, rect::*};
 

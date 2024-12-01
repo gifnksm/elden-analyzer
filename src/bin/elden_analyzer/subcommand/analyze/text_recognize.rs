@@ -4,9 +4,9 @@ use color_eyre::eyre;
 use elden_analyzer::{
     components::{Component, ComponentContainer, Components, DetectionPayload, ExtractedTexts},
     image_process::tesseract::Tesseract,
-    video_capture::Frame,
 };
 use elden_analyzer_kernel::types::time::FramePosition;
+use elden_analyzer_video::capture::Frame;
 use lockfree_object_pool::LinearObjectPool;
 
 use super::comp_accum::{self, AccumDetection};

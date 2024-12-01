@@ -1,4 +1,5 @@
 use elden_analyzer_kernel::types::rect::Rect;
+use elden_analyzer_video::capture::Frame;
 use imageproc::{
     filter,
     image::{buffer::ConvertBuffer as _, GrayImage, Luma, RgbImage},
@@ -7,7 +8,7 @@ use imageproc::{
 use crate::{
     algorithm::{FilledLength, FindLineSegments, MeasureFilledLength},
     util::ImageLogger,
-    video_capture::Frame,
+    video_capture::FrameExt as _,
 };
 
 use super::h_lines::{HLineType, HLines};

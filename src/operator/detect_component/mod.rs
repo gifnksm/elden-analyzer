@@ -1,8 +1,7 @@
 use std::fmt;
 
 use color_eyre::eyre;
-
-use crate::video_capture::Frame;
+use elden_analyzer_video::capture::Frame;
 
 pub use self::{histogram_based::*, line_based::*};
 

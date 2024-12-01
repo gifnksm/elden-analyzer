@@ -542,13 +542,11 @@ dependencies = [
  "chrono",
  "clap",
  "color-eyre",
- "custom_debug_derive",
  "elden-analyzer-collections",
  "elden-analyzer-kernel",
- "ffmpeg-next",
+ "elden-analyzer-video",
  "imageproc",
  "indicatif",
- "libc",
  "lockfree-object-pool",
  "num-rational",
  "num-traits",
@@ -572,6 +570,20 @@ version = "0.1.0"
 dependencies = [
  "num-rational",
  "thiserror 2.0.3",
+]
+
+[[package]]
+name = "elden-analyzer-video"
+version = "0.1.0"
+dependencies = [
+ "custom_debug_derive",
+ "elden-analyzer-kernel",
+ "ffmpeg-next",
+ "libc",
+ "num-rational",
+ "num-traits",
+ "thiserror 2.0.3",
+ "tracing",
 ]
 
 [[package]]

@@ -8,9 +8,9 @@ use std::{
 use color_eyre::eyre::{self, OptionExt as _};
 use elden_analyzer::{
     components::Components, image_process::tesseract::Tesseract, util::ImageLogger,
-    video_capture::VideoCapture,
 };
 use elden_analyzer_kernel::types::time::TimestampRange;
+use elden_analyzer_video::capture::VideoCapture;
 use lockfree_object_pool::LinearObjectPool;
 use rayon::{prelude::*, ThreadPoolBuilder};
 use tracing::Span;

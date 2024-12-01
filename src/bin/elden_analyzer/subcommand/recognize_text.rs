@@ -2,13 +2,11 @@ use std::path::PathBuf;
 
 use color_eyre::eyre::{self, OptionExt as _};
 use elden_analyzer_kernel::types::time::TimestampRange;
+use elden_analyzer_video::capture::{Frame, VideoCapture};
 use tracing::info;
 
 use elden_analyzer::{
-    components::Components,
-    image_process::tesseract::Tesseract,
-    util::ImageLogger,
-    video_capture::{Frame, VideoCapture},
+    components::Components, image_process::tesseract::Tesseract, util::ImageLogger,
 };
 
 /// Analyze the video files to extract information

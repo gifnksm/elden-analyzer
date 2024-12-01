@@ -1,12 +1,10 @@
 use std::{collections::VecDeque, sync::mpsc};
 
 use color_eyre::eyre;
-use elden_analyzer::{
-    components::{ComponentContainer, Detection, DetectionPayload},
-    video_capture::Frame,
-};
+use elden_analyzer::components::{ComponentContainer, Detection, DetectionPayload};
 use elden_analyzer_collections::seq_iter::SeqIter;
 use elden_analyzer_kernel::types::time::FramePosition;
+use elden_analyzer_video::capture::Frame;
 
 use super::comp_detect;
 
