@@ -3,11 +3,11 @@ use std::{any::Any, array, fmt, iter};
 use color_eyre::eyre;
 use elden_analyzer_collections::array::array_from_iter;
 use elden_analyzer_kernel::types::rect::Rect;
+use elden_analyzer_video::capture::Frame;
 
 use crate::{
     image_process::tesseract::Tesseract,
     operator::{DetectionKind, ExtractText, Recognition},
-    video_capture::Frame,
 };
 
 mod main_item;

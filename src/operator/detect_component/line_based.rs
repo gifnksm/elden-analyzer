@@ -1,5 +1,6 @@
 use color_eyre::eyre;
 use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
+use elden_analyzer_video::capture::Frame;
 use imageproc::drawing;
 use num_rational::Ratio;
 use num_traits::ToPrimitive as _;
@@ -7,7 +8,7 @@ use num_traits::ToPrimitive as _;
 use crate::{
     image_process::{h_lines::HLineType, line_finder::LineFinder},
     util::ImageLogger,
-    video_capture::Frame,
+    video_capture::FrameExt as _,
 };
 
 use super::{DetectComponent, DetectionKind};

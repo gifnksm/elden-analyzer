@@ -1,11 +1,9 @@
 use std::time::Instant;
 
 use color_eyre::eyre;
-use elden_analyzer::{
-    components::{Component, ComponentContainer, Components, Detection},
-    video_capture::Frame,
-};
+use elden_analyzer::components::{Component, ComponentContainer, Components, Detection};
 use elden_analyzer_kernel::types::time::FramePosition;
+use elden_analyzer_video::capture::Frame;
 
 use super::decode;
 

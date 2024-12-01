@@ -5,8 +5,8 @@ use elden_analyzer::{
     components::{ComponentContainer, Components},
     operator::DetectionKind,
     util::ImageLogger,
-    video_capture::{Frame, VideoCapture},
 };
+use elden_analyzer_video::capture::{Frame, VideoCapture};
 
 fn load_image(path: impl AsRef<Path>) -> eyre::Result<Frame> {
     let mut capture = VideoCapture::open(path.as_ref())?;

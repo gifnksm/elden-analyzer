@@ -1,5 +1,6 @@
 use color_eyre::eyre::{self, eyre};
 use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
+use elden_analyzer_video::capture::Frame;
 use num_rational::Ratio;
 
 use crate::{
@@ -8,7 +9,6 @@ use crate::{
         ExtractText, HistogramBasedComponentDetector, HistogramBasedComponentDetectorBuilder,
         HistogramThreshold, PostProcess, Recognition, RectTextExtractorBuilder, TextAlign,
     },
-    video_capture::Frame,
 };
 
 use super::{Component, Detection, DetectionPayload, ExtractedTexts};

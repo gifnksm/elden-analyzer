@@ -50,7 +50,7 @@ fn main() -> eyre::Result<()> {
     } = Args::parse();
 
     init_log(log_args)?;
-    ffmpeg::init()?;
+    elden_analyzer_video::init()?;
 
     subcommand.run()?;
 
