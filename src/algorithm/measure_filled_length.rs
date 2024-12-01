@@ -3,7 +3,7 @@ use std::{
     ops::{self, Range},
 };
 
-use imageproc::rect::Rect;
+use elden_analyzer_kernel::types::rect::Rect;
 use num_rational::Ratio;
 
 #[derive(Debug, Clone, Copy, Default)]

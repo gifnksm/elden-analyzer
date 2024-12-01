@@ -4,8 +4,9 @@ use color_eyre::eyre::{self, OptionExt};
 use elden_analyzer::{
     components::Components,
     util::ImageLogger,
-    video_capture::{Frame, TimestampRange, VideoCapture},
+    video_capture::{Frame, VideoCapture},
 };
+use elden_analyzer_kernel::types::time::TimestampRange;
 use tracing::info;
 
 /// Analyze the video files to extract information

@@ -1,9 +1,8 @@
 use color_eyre::eyre::{self, eyre};
-use imageproc::rect::Rect;
+use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
 use num_rational::Ratio;
 
 use crate::{
-    geometry::ClipRect,
     image_process::tesseract::Tesseract,
     operator::{
         ExtractText, HistogramBasedComponentDetector, HistogramBasedComponentDetectorBuilder,
@@ -194,23 +193,13 @@ const SIDE_ITEM_HEIGHT: i32 = 44;
 const SIDE_ITEM_BOX_IN_FRAME: [ClipRect; COUNT] = {
     const WIDTH: i32 = 1920;
     const HEIGHT: i32 = 1080;
-
-    const fn pix2ratio_x(x: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * x - WIDTH, 2 * WIDTH)
-    }
-    const fn pix2ratio_y(y: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * y - HEIGHT, 2 * HEIGHT)
-    }
-
     const X0: i32 = SIDE_ITEM_X0_IN_FRAME;
 
     const fn rect((x0, y0): (i32, i32)) -> ClipRect {
-        ClipRect::new(
-            (pix2ratio_x(x0), pix2ratio_y(y0)),
-            (
-                pix2ratio_x(x0 + SIDE_ITEM_WIDTH - 1),
-                pix2ratio_y(y0 + SIDE_ITEM_HEIGHT - 1),
-            ),
+        ClipRect::from_points(
+            (x0, y0),
+            (x0 + SIDE_ITEM_WIDTH - 1, y0 + SIDE_ITEM_HEIGHT - 1),
+            (WIDTH, HEIGHT),
         )
     }
 
@@ -232,13 +221,6 @@ const SIDE_ITEM_LEVEL_WIDTH: u8 = 16;
 const SIDE_ITEM_AREAS_IN_BOX: &[&[(HistogramThreshold, &[ClipRect])]] = {
     const WIDTH: i32 = SIDE_ITEM_WIDTH;
     const HEIGHT: i32 = SIDE_ITEM_HEIGHT;
-
-    const fn pix2ratio_x(x: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * x - WIDTH, 2 * WIDTH)
-    }
-    const fn pix2ratio_y(y: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * y - HEIGHT, 2 * HEIGHT)
-    }
 
     const X0: i32 = SIDE_ITEM_X0_IN_FRAME;
     const Y0: i32 = SIDE_ITEM0_Y0_IN_FRAME;
@@ -262,10 +244,7 @@ const SIDE_ITEM_AREAS_IN_BOX: &[&[(HistogramThreshold, &[ClipRect])]] = {
     const DIGIT2_X1: i32 = DIGIT1_X1;
 
     const fn rect((x0, y0): (i32, i32), (x1, y1): (i32, i32)) -> ClipRect {
-        ClipRect::new(
-            (pix2ratio_x(x0 - X0), pix2ratio_y(y0 - Y0)),
-            (pix2ratio_x(x1 - X0), pix2ratio_y(y1 - Y0)),
-        )
+        ClipRect::from_points((x0 - X0, y0 - Y0), (x1 - X0, y1 - Y0), (WIDTH, HEIGHT))
     }
 
     const TOP_BLANK0: ClipRect = rect((1600, Y0), (1792, TEXT_Y0 - 1));
@@ -335,21 +314,11 @@ const TEXT_IN_BOX: &[(ClipRect, PostProcess, TextAlign)] = {
     const WIDTH: i32 = SIDE_ITEM_WIDTH;
     const HEIGHT: i32 = SIDE_ITEM_HEIGHT;
 
-    const fn pix2ratio_x(x: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * x - WIDTH, 2 * WIDTH)
-    }
-    const fn pix2ratio_y(y: i32) -> Ratio<i32> {
-        Ratio::new_raw(2 * y - HEIGHT, 2 * HEIGHT)
-    }
-
     const X0: i32 = SIDE_ITEM_X0_IN_FRAME;
     const Y0: i32 = SIDE_ITEM0_Y0_IN_FRAME;
 
     const fn rect((x0, y0): (i32, i32), (x1, y1): (i32, i32)) -> ClipRect {
-        ClipRect::new(
-            (pix2ratio_x(x0 - X0), pix2ratio_y(y0 - Y0)),
-            (pix2ratio_x(x1 - X0), pix2ratio_y(y1 - Y0)),
-        )
+        ClipRect::from_points((x0 - X0, y0 - Y0), (x1 - X0, y1 - Y0), (WIDTH, HEIGHT))
     }
 
     &[

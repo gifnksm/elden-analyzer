@@ -1,8 +1,8 @@
 use std::{any::Any, array, fmt, iter};
 
 use color_eyre::eyre;
-use elden_analyzer_collections::array_from_iter;
-use imageproc::rect::Rect;
+use elden_analyzer_collections::array::array_from_iter;
+use elden_analyzer_kernel::types::rect::Rect;
 
 use crate::{
     image_process::tesseract::Tesseract,

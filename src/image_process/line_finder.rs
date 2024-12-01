@@ -1,7 +1,7 @@
+use elden_analyzer_kernel::types::rect::Rect;
 use imageproc::{
     filter,
     image::{buffer::ConvertBuffer as _, GrayImage, Luma, RgbImage},
-    rect::Rect,
 };
 
 use crate::{

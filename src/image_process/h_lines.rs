@@ -1,11 +1,13 @@
-use elden_analyzer_collections::Vec2d;
+use std::ops::Range;
+
+use elden_analyzer_collections::vec2d::Vec2d;
 use imageproc::{
     filter,
     gradients::{horizontal_sobel, vertical_sobel},
     image::{GrayImage, RgbImage},
 };
 
-use crate::{geometry::Neighbor, util::ImageLogger};
+use crate::util::ImageLogger;
 
 #[derive(Debug, Clone, Copy)]
 pub enum HLineType {
@@ -123,7 +125,7 @@ impl HLines {
                     to_visit.push((x, y));
 
                     while let Some((nx, ny)) = to_visit.pop() {
-                        for (nx, ny) in Neighbor::neighbors_in((nx, ny), width, height) {
+                        for (nx, ny) in neighbors_in((nx, ny), width, height) {
                             let in_nv = local_maximum[(nx, ny)];
                             let out_nv = &mut edges[(nx, ny)];
                             if in_nv >= LOW_VALUE && *out_nv == 0 {
@@ -166,4 +168,46 @@ impl HLines {
             lines
         })
     }
+}
+
+fn neighbors_in(
+    (x, y): (usize, usize),
+    width: usize,
+    height: usize,
+) -> impl Iterator<Item = (usize, usize)> {
+    use Neighbor::*;
+
+    enum Neighbor {
+        M,
+        Z,
+        P,
+    }
+
+    impl Neighbor {
+        fn comp(&self, n: usize, r: Range<usize>) -> Option<usize> {
+            let v = match self {
+                M => n.checked_sub(1)?,
+                Z => n,
+                P => n.checked_add(1)?,
+            };
+            r.contains(&v).then_some(v)
+        }
+    }
+
+    [
+        (M, M),
+        (Z, M),
+        (P, M),
+        (M, Z),
+        (P, Z),
+        (M, P),
+        (Z, P),
+        (P, P),
+    ]
+    .into_iter()
+    .filter_map(move |(dx, dy)| {
+        let fx = dx.comp(x, 0..width)?;
+        let fy = dy.comp(y, 0..height)?;
+        Some((fx, fy))
+    })
 }

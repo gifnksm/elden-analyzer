@@ -1,7 +1,8 @@
 use std::sync::mpsc;
 
 use color_eyre::eyre;
-use elden_analyzer::video_capture::{Frame, FramePosition, RangeDecoder};
+use elden_analyzer::video_capture::{Frame, RangeDecoder};
+use elden_analyzer_kernel::types::time::FramePosition;
 
 use crate::tui::ProgressBar;
 

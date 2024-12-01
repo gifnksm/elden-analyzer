@@ -1,11 +1,10 @@
 use std::fmt;
 
+use elden_analyzer_kernel::types::time::{Duration, FramePosition, Timestamp};
 use indicatif::{ProgressState, ProgressStyle};
 use num_rational::Ratio;
 use tracing::Span;
 use tracing_indicatif::span_ext::IndicatifSpanExt;
-
-use elden_analyzer::video_capture::{Duration, FramePosition, Timestamp};
 
 #[derive(Debug, Clone, Copy)]
 pub struct ProgressBarBuilder {

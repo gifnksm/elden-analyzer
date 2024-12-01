@@ -1,10 +1,9 @@
 use color_eyre::eyre;
-use imageproc::rect::Rect;
+use elden_analyzer_kernel::types::{clip_rect::ClipRect, rect::Rect};
 use num_rational::Ratio;
 
 use crate::{
     algorithm::FindLineSegments,
-    geometry::ClipRect,
     image_process::{
         h_lines::{HLineType, HLines},
         line_finder::LineFinder,

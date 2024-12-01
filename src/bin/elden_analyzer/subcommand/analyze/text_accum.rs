@@ -12,9 +12,9 @@ use color_eyre::eyre;
 use elden_analyzer::{
     components::{ComponentContainer, ExtractedTexts},
     operator::Recognition,
-    video_capture::{Duration, FramePosition},
 };
-use elden_analyzer_collections::SeqIter;
+use elden_analyzer_collections::seq_iter::SeqIter;
+use elden_analyzer_kernel::types::time::{Duration, FramePosition};
 use num_rational::Ratio;
 
 use super::text_recognize::{self};

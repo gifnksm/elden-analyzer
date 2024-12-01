@@ -1,5 +1,6 @@
-use imageproc::rect::Rect;
 use num_rational::Ratio;
+
+use super::rect::Rect;
 
 #[derive(Debug, Clone, Copy)]
 pub struct ClipRect {
@@ -20,6 +21,21 @@ impl ClipRect {
             right,
             bottom,
         }
+    }
+
+    pub const fn from_points(
+        (left, top): (i32, i32),
+        (right, bottom): (i32, i32),
+        (width, height): (i32, i32),
+    ) -> Self {
+        assert!(0 <= left && left <= right && right < width);
+        assert!(0 <= top && top <= bottom && bottom < height);
+
+        let left = Ratio::new_raw(2 * left - width, 2 * width);
+        let top = Ratio::new_raw(2 * top - height, 2 * height);
+        let right = Ratio::new_raw(2 * right - width, 2 * width);
+        let bottom = Ratio::new_raw(2 * bottom - height, 2 * height);
+        Self::new((left, top), (right, bottom))
     }
 
     pub fn area(&self) -> Ratio<i32> {
