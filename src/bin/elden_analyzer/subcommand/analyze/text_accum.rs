@@ -178,7 +178,7 @@ impl Accumulator {
 
         let in_found_span = self
             .found_start
-            .map_or(false, |start| start.index() >= end.index());
+            .is_some_and(|start| start.index() >= end.index());
         !in_found_span
     }
 
@@ -193,11 +193,11 @@ impl Accumulator {
 
     fn is_span_end(&self, end: FramePosition) -> bool {
         self.end_of_frames
-            .map_or(false, |eof| eof.index() == end.index())
+            .is_some_and(|eof| eof.index() == end.index())
             || self
                 .found_start
-                .map_or(false, |start| start.index() == end.index())
-            || self.results.front().map_or(false, |result| {
+                .is_some_and(|start| start.index() == end.index())
+            || self.results.front().is_some_and(|result| {
                 result.start.index() == end.index() || result.end.index() == end.index()
             })
     }
@@ -206,7 +206,7 @@ impl Accumulator {
         while self
             .results
             .front()
-            .map_or(false, |result| result.end.index() < pos.index())
+            .is_some_and(|result| result.end.index() < pos.index())
         {
             self.results.pop_front();
         }
