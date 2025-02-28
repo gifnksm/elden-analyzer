@@ -16,7 +16,7 @@ elden-analyzer-collections = { path = "crates/collections" }
 elden-analyzer-kernel = { path = "crates/kernel" }
 elden-analyzer-video ={ path = "crates/video" }
 ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false, features = ["codec", "format", "software-scaling"] }
-libc = "0.2.169"
+libc = "0.2.170"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
 thiserror = "2.0.11"
