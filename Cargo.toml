@@ -19,7 +19,7 @@ ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false,
 libc = "0.2.170"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
-thiserror = "2.0.11"
+thiserror = "2.0.12"
 tracing = "0.1.41"
 
 [package]
