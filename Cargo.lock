@@ -1558,9 +1558,9 @@ dependencies = [
 
 [[package]]
 name = "tesseract-plumbing"
-version = "0.11.0"
+version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7fb02c52201d03517af73dd0a146ac62cbd6f0155ad3dc6455d0140d6112191"
+checksum = "4ed025d755abb7f5af8d16cd5663742a08c8ae7c4032c8bf4b70c51d412fe378"
 dependencies = [
  "leptonica-plumbing",
  "tesseract-sys",
@@ -1569,9 +1569,9 @@ dependencies = [
 
 [[package]]
 name = "tesseract-sys"
-version = "0.5.15"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd33f6f216124cfaf0fa86c2c0cdf04da39b6257bd78c5e44fa4fa98c3a5857b"
+checksum = "1574683ba2651a7e4b5f091ab780baf7131488d09125500ffe6e2449092456cd"
 dependencies = [
  "bindgen 0.64.0",
  "leptonica-sys",
