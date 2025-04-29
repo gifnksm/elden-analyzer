@@ -53,7 +53,7 @@ bin-dir = "{ bin }{ binary-ext }"
 pkg-fmt = "tgz"
 
 [dependencies]
-chrono = "0.4.40"
+chrono = "0.4.41"
 clap = { version = "4.5.35", features = ["derive"] }
 color-eyre = "0.6.3"
 elden-analyzer-collections.workspace = true
