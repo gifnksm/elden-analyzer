@@ -54,7 +54,7 @@ pkg-fmt = "tgz"
 
 [dependencies]
 chrono = "0.4.40"
-clap = { version = "4.5.35", features = ["derive"] }
+clap = { version = "4.5.39", features = ["derive"] }
 color-eyre = "0.6.3"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
