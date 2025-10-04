@@ -61,7 +61,7 @@ elden-analyzer-kernel.workspace = true
 elden-analyzer-video.workspace = true
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
-indicatif = "0.17.11"
+indicatif = "0.18.0"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
 num-traits.workspace = true
