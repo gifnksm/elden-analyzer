@@ -202,7 +202,7 @@ impl VideoCapture {
         Ok(())
     }
 
-    pub fn range_decoder(&mut self, range: TimestampRange) -> Result<RangeDecoder> {
+    pub fn range_decoder(&mut self, range: TimestampRange) -> Result<RangeDecoder<'_>> {
         let start = match range {
             TimestampRange::Full => Timestamp::new(Ratio::ZERO),
             TimestampRange::Single(ts) => ts,
@@ -231,7 +231,7 @@ impl VideoCapture {
         Ok(decoder)
     }
 
-    fn read_video_packet(&mut self) -> Option<(Stream, Packet)> {
+    fn read_video_packet(&mut self) -> Option<(Stream<'_>, Packet)> {
         let video_stream_index = self.video_stream_idx;
         self.ictx
             .packets()
