@@ -91,7 +91,7 @@ impl<T> ComponentContainer<T> {
         }
     }
 
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         let Self {
             main_item,
             side_item,
@@ -101,7 +101,7 @@ impl<T> ComponentContainer<T> {
         Iter { iter }
     }
 
-    pub fn iter_mut(&mut self) -> IterMut<T> {
+    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         let Self {
             main_item,
             side_item,
