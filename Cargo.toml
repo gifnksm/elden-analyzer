@@ -54,20 +54,20 @@ pkg-fmt = "tgz"
 
 [dependencies]
 chrono = "0.4.42"
-clap = { version = "4.5.48", features = ["derive"] }
+clap = { version = "4.5.51", features = ["derive"] }
 color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
 elden-analyzer-video.workspace = true
 # imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
 imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
-indicatif = "0.18.0"
+indicatif = "0.18.3"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
 num-traits.workspace = true
 rayon = "1.11.0"
-regex = "1.11.3"
-sdl2 = { version = "0.36", features = ["use-vcpkg"] }
+regex = "1.12.2"
+sdl2 = { version = "0.38", features = ["use-vcpkg"] }
 tesseract-plumbing = { version = "0.11.1", default-features = false }
 tracing.workspace = true
 tracing-error = "0.2.1"
