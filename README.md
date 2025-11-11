@@ -4,7 +4,7 @@
 <!-- cargo-sync-rdme badge [[ -->
 [![Maintenance: experimental](https://img.shields.io/badge/maintenance-experimental-blue.svg?style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-badges-section)
 [![License: MIT OR Apache-2.0](https://img.shields.io/crates/l/elden-analyzer.svg?style=flat-square)](#license)
-[![Rust: ^1.85.0](https://img.shields.io/badge/rust-^1.85.0-93450a.svg?logo=rust&style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
+[![Rust: ^1.88.0](https://img.shields.io/badge/rust-^1.88.0-93450a.svg?logo=rust&style=flat-square)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
 [![GitHub Actions: CI](https://img.shields.io/github/actions/workflow/status/gifnksm/elden-analyzer/ci.yml.svg?label=CI&logo=github&style=flat-square)](https://github.com/gifnksm/elden-analyzer/actions/workflows/ci.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/gifnksm/elden-analyzer.svg?label=codecov&logo=codecov&style=flat-square)](https://codecov.io/gh/gifnksm/elden-analyzer)
 <!-- cargo-sync-rdme ]] -->
