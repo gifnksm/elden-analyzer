@@ -16,11 +16,11 @@ elden-analyzer-collections = { path = "crates/collections" }
 elden-analyzer-kernel = { path = "crates/kernel" }
 elden-analyzer-video ={ path = "crates/video" }
 ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false, features = ["codec", "format", "software-scaling"] }
-libc = "0.2.177"
+libc = "0.2.180"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
-thiserror = "2.0.17"
-tracing = "0.1.41"
+thiserror = "2.0.18"
+tracing = "0.1.44"
 
 [package]
 name = "elden-analyzer"
@@ -53,8 +53,8 @@ bin-dir = "{ bin }{ binary-ext }"
 pkg-fmt = "tgz"
 
 [dependencies]
-chrono = "0.4.42"
-clap = { version = "4.5.51", features = ["derive"] }
+chrono = "0.4.43"
+clap = { version = "4.5.56", features = ["derive"] }
 color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
@@ -71,8 +71,8 @@ sdl2 = { version = "0.38", features = ["use-vcpkg"] }
 tesseract-plumbing = { version = "0.11.1", default-features = false }
 tracing.workspace = true
 tracing-error = "0.2.1"
-tracing-indicatif = "0.3.13"
-tracing-subscriber = { version = "0.3.20", features = ["env-filter", "json"] }
+tracing-indicatif = "0.3.14"
+tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
 
 [dev-dependencies]
 [build-dependencies]
