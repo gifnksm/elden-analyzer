@@ -59,8 +59,7 @@ color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
 elden-analyzer-video.workspace = true
-# imageproc = { version = "0.25.0", default-features = false, features = ["display-window"] }
-imageproc = { git = "https://github.com/image-rs/imageproc.git", version = "0.26.0", default-features = false, features = ["display-window"] }
+imageproc = { version = "0.26.0", default-features = false, features = ["display-window"] }
 indicatif = "0.18.3"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
