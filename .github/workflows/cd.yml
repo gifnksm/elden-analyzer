@@ -29,29 +29,49 @@ jobs:
         job:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
+          # - os: ubuntu-24.04-arm
+          #   target: aarch64-unknown-linux-gnu
+          # - os: ubuntu-latest
+          #   target: i686-unknown-linux-gnu
+          # - os: macos-latest
+          #   target: aarch64-apple-darwin
+          # - os: windows-latest
+          #   target: x86_64-pc-windows-msvc
+          # - os: windows-11-arm
+          #   target: aarch64-pc-windows-msvc
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cross
       - uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.job.target }}
-      - name: Install cross
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cross
+
+      - name: Install modern bash on macOS
+        if: startsWith(matrix.job.os, 'macos')
+        run: |
+          brew install bash
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+        shell: bash
+
       - name: Setup build environment
         run: .github/ci-scripts/setup-build-ubuntu
         if: matrix.job.os == 'ubuntu-latest'
-      - name: cargo xtask dist
-        run: cargo xtask dist --use-cross-if-needed --target ${{ matrix.job.target }}
+
+      - name: Build artifact
+        run: ./scripts/build-dist --target "${{ matrix.job.target }}"
         shell: bash
+
       - name: Upload binaries as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: artifact-${{ matrix.job.target }}
           path: target/dist/*
+
       - name: Releasing assets
         uses: softprops/action-gh-release@v2
         with:
