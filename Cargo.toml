@@ -95,3 +95,6 @@ dependencies = ["ffmpeg[avcodec,avformat,swscale]", "sdl2", "leptonica", "tesser
 
 [package.metadata.vcpkg.target]
 x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md" }
+
+[package.metadata.cargo-machete]
+ignored = ["sdl2"] # indirect dependency for enabling `use-vcpkg` feature
