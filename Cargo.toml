@@ -53,8 +53,8 @@ bin-dir = "{ bin }{ binary-ext }"
 pkg-fmt = "tgz"
 
 [dependencies]
-chrono = "0.4.43"
-clap = { version = "4.5.58", features = ["derive"] }
+chrono = "0.4.44"
+clap = { version = "4.6.0", features = ["derive"] }
 clap_complete = "4.6.0"
 clap_complete_nushell = "4.6.0"
 clap_mangen = "0.3.0"
@@ -62,8 +62,8 @@ color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
 elden-analyzer-video.workspace = true
-imageproc = { version = "0.26.0", default-features = false, features = ["display-window"] }
-indicatif = "0.18.3"
+imageproc = { version = "0.26.1", default-features = false, features = ["display-window"] }
+indicatif = "0.18.4"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
 num-traits.workspace = true
@@ -74,7 +74,7 @@ tesseract-plumbing = { version = "0.11.1", default-features = false }
 tracing.workspace = true
 tracing-error = "0.2.1"
 tracing-indicatif = "0.3.14"
-tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json"] }
 
 [dev-dependencies]
 [build-dependencies]
