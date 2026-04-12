@@ -20,7 +20,7 @@ env:
 permissions: {}
 
 jobs:
-  security_audit:
+  security-audit:
     name: cargo-audit / issue reporting
     runs-on: ubuntu-latest
     permissions:
@@ -30,7 +30,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - uses: actions-rust-lang/audit@v1
 
-  cargo_deny_advisories:
+  cargo-deny-advisories:
     name: cargo-deny / advisories
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +40,7 @@ jobs:
         with:
           command: check advisories
 
-  cargo_deny_policy:
+  cargo-deny-policy:
     name: cargo-deny / bans licenses sources
     runs-on: ubuntu-latest
     steps:
@@ -55,15 +55,15 @@ jobs:
     # and advisory results are visible, but intentionally exclude them from the
     # required status check so newly disclosed advisories do not suddenly fail CI.
     needs:
-      - security_audit
-      - cargo_deny_advisories
-      - cargo_deny_policy
+      - security-audit
+      - cargo-deny-advisories
+      - cargo-deny-policy
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:
       - name: Audit complete
         run: |
-          if [[ "${{ needs.cargo_deny_policy.result }}" == "success" ]]; then
+          if [[ "${{ needs['cargo-deny-policy'].result }}" == "success" ]]; then
             echo "Audit succeeded"
           else
             echo "Audit failed"
