@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -eux
+
+install_cargo_binstall() {
+    if ! command -v cargo-binstall &>/dev/null; then
+        curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    fi
+}
+
+install_cargo_tool() {
+    local package="$1"
+    local binary="${2:-$package}"
+
+    if ! command -v "$binary" &>/dev/null; then
+        cargo binstall "$package" --no-confirm
+    fi
+}
+
+main() {
+    .github/ci-scripts/setup-build-ubuntu
+
+    rustup component add llvm-tools
+
+    rustup toolchain add nightly
+
+    rustc --version
+    rustc +nightly --version
+
+    install_cargo_binstall
+    install_cargo_tool just
+    install_cargo_tool cargo-hack
+    install_cargo_tool cargo-docs-rs
+    install_cargo_tool cargo-sync-rdme
+    install_cargo_tool cargo-machete
+    install_cargo_tool cargo-llvm-cov
+    install_cargo_tool cargo-deny
+}
+
+main "$@"
