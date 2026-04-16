@@ -16,7 +16,7 @@ elden-analyzer-collections = { path = "crates/collections" }
 elden-analyzer-kernel = { path = "crates/kernel" }
 elden-analyzer-video ={ path = "crates/video" }
 ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false, features = ["codec", "format", "software-scaling"] }
-libc = "0.2.184"
+libc = "0.2.185"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
 thiserror = "2.0.18"
@@ -54,8 +54,8 @@ pkg-fmt = "tgz"
 
 [dependencies]
 chrono = "0.4.44"
-clap = { version = "4.6.0", features = ["derive"] }
-clap_complete = "4.6.1"
+clap = { version = "4.6.1", features = ["derive"] }
+clap_complete = "4.6.2"
 clap_complete_nushell = "4.6.0"
 clap_mangen = "0.3.0"
 color-eyre = "0.6.5"
@@ -67,7 +67,7 @@ indicatif = "0.18.4"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
 num-traits.workspace = true
-rayon = "1.11.0"
+rayon = "1.12.0"
 regex = "1.12.3"
 sdl2 = { version = "0.38", features = ["use-vcpkg"] }
 tesseract-plumbing = { version = "0.11.1", default-features = false }
