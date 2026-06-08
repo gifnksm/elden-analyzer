@@ -6,7 +6,7 @@ resolver = "2"
 version = "0.1.0"
 edition = "2021"
 publish = false
-rust-version = "1.88.0"
+rust-version = "1.89.0"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/gifnksm/elden-analyzer"
 
@@ -62,7 +62,7 @@ color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
 elden-analyzer-kernel.workspace = true
 elden-analyzer-video.workspace = true
-imageproc = { version = "0.26.2", default-features = false, features = ["display-window"] }
+imageproc = { version = "0.27.0", default-features = false, features = ["display-window"] }
 indicatif = "0.18.4"
 lockfree-object-pool = "0.1.6"
 num-rational.workspace = true
