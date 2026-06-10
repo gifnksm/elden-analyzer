@@ -252,7 +252,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - run: just ci-coverage
         shell: bash
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: target/codecov.json
