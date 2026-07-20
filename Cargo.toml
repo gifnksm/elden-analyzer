@@ -19,7 +19,7 @@ ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false,
 libc = "0.2.186"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 tracing = "0.1.44"
 
 [package]
@@ -56,7 +56,7 @@ pkg-fmt = "tgz"
 chrono = "0.4.45"
 clap = { version = "4.6.2", features = ["derive"] }
 clap_complete = "4.6.7"
-clap_complete_nushell = "4.6.0"
+clap_complete_nushell = "4.6.1"
 clap_mangen = "0.3.0"
 color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
