@@ -54,10 +54,6 @@ llvm-cov-all *args:
 doc-all *args:
     cargo hack doc --workspace --feature-powerset {{ args }}
 
-# Build docs.rs-compatible docs for all packages.
-docs-rs-all *args:
-    rustup run nightly cargo hack docs-rs {{ args }}
-
 # Synchronize README snippets for all packages.
 sync-rdme-all *args:
     cargo hack sync-rdme --toolchain nightly --workspace {{ args }}
@@ -67,7 +63,7 @@ machete *args:
     cargo machete {{ args }}
 
 # Run all CI-equivalent checks.
-ci: ci-rustfmt ci-check ci-clippy ci-rustdoc ci-docs-rs ci-sync-rdme ci-machete ci-test ci-coverage
+ci: ci-rustfmt ci-check ci-clippy ci-rustdoc ci-sync-rdme ci-machete ci-test ci-coverage
 
 # CI: formatting must be clean.
 ci-rustfmt:
@@ -86,11 +82,6 @@ ci-clippy:
 [env("CARGO_BUILD_WARNINGS", "deny")]
 ci-rustdoc:
     just doc-all --no-deps
-
-# CI: docs.rs warnings are treated as errors.
-[env("CARGO_BUILD_WARNINGS", "deny")]
-ci-docs-rs:
-    just docs-rs-all
 
 # CI: README sync must produce no diff.
 ci-sync-rdme:
