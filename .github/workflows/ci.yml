@@ -23,11 +23,11 @@ jobs:
       rust: ${{ steps.set-values.outputs.rust }}
       os: ${{ steps.set-values.outputs.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: stable
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - name: Set matrix values
         id: set-values
         run: |
@@ -54,12 +54,12 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
           components: rustfmt
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just
       - run: just ci-rustfmt
@@ -75,14 +75,14 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-hack
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
         if: matrix.os == 'ubuntu-latest'
@@ -99,15 +99,15 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
           components: clippy
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-hack
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
         if: matrix.os == 'ubuntu-latest'
@@ -124,14 +124,14 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-hack
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
         if: matrix.os == 'ubuntu-latest'
@@ -148,14 +148,14 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-hack,cargo-sync-rdme
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - run: rustup toolchain install nightly --profile minimal
         shell: bash
       - run: just ci-sync-rdme
@@ -171,14 +171,14 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-machete
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - run: just ci-machete
         shell: bash
 
@@ -192,15 +192,15 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@v2.9.2
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
         if: matrix.os == 'ubuntu-latest'
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-hack
       - run: just ci-test
@@ -216,13 +216,13 @@ jobs:
         os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
           components: llvm-tools-preview
-      - uses: Swatinem/rust-cache@v2
-      - uses: taiki-e/install-action@v2
+      - uses: Swatinem/rust-cache@v2.9.2
+      - uses: taiki-e/install-action@v2.87.24
         with:
           tool: just,cargo-llvm-cov
       - name: Setup build environment
@@ -230,7 +230,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - run: just ci-coverage
         shell: bash
-      - uses: codecov/codecov-action@v7
+      - uses: codecov/codecov-action@v7.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: target/codecov.json
@@ -239,7 +239,7 @@ jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: Check workflow files
         run: |
           bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
