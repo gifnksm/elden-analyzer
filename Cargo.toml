@@ -15,7 +15,7 @@ custom-debug = { version = "0.6.2", package = "custom_debug_derive" }
 elden-analyzer-collections = { path = "crates/collections" }
 elden-analyzer-kernel = { path = "crates/kernel" }
 elden-analyzer-video ={ path = "crates/video" }
-ffmpeg = { package = "ffmpeg-next", version = "7.1.0", default-features = false, features = ["codec", "format", "software-scaling"] }
+ffmpeg = { package = "ffmpeg-next", version = "9.0.0", default-features = false, features = ["codec", "format", "software-scaling"] }
 libc = "0.2.190"
 num-rational = { version = "0.4.2", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
