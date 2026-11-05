@@ -44,7 +44,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: taiki-e/install-action@v2.89.0
+      - uses: taiki-e/install-action@v2.89.1
         with:
           tool: cross
       - uses: Swatinem/rust-cache@v2.9.3
