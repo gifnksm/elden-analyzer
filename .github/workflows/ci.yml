@@ -18,7 +18,7 @@ permissions: {}
 
 jobs:
   set-matrix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       rust: ${{ steps.set-values.outputs.rust }}
       os: ${{ steps.set-values.outputs.os }}
@@ -39,7 +39,7 @@ jobs:
           rust="$(echo "[\"stable\", ${msrv}]" | jq -c)"
           echo "rust=${rust}" >> "$GITHUB_OUTPUT"
 
-          os="$(echo '["ubuntu-latest"]' | jq -c)"
+          os="$(echo '["ubuntu-24.04"]' | jq -c)"
           echo "os=${os}" >> "$GITHUB_OUTPUT"
 
           jq -n --argjson rust "${rust}" --argjson os "${os}" '{ rust: $rust, os: $os }'
@@ -51,7 +51,7 @@ jobs:
       fail-fast: true
       matrix:
         rust: [stable]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7.0.1
@@ -85,7 +85,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-check
         shell: bash
 
@@ -110,7 +110,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-clippy
         shell: bash
 
@@ -134,7 +134,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-rustdoc
         shell: bash
 
@@ -199,7 +199,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack
@@ -227,7 +227,7 @@ jobs:
           tool: just,cargo-llvm-cov
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-coverage
         shell: bash
       - uses: codecov/codecov-action@v7.1.1
@@ -237,7 +237,7 @@ jobs:
           fail_ci_if_error: false
 
   actionlint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Check workflow files
@@ -259,7 +259,7 @@ jobs:
       - test
       - coverage
       - actionlint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ always() }}
     steps:
       - name: CI complete
