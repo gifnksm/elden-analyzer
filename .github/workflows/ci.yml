@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just
       - run: just ci-rustfmt
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
@@ -80,7 +80,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-hack,cargo-sync-rdme
       - uses: Swatinem/rust-cache@v2.9.3
@@ -95,7 +95,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-machete
       - uses: Swatinem/rust-cache@v2.9.3
@@ -111,7 +111,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-hack
       - run: just ci-test
@@ -125,7 +125,7 @@ jobs:
       - run: rustup install
       - run: rustup component add llvm-tools-preview
       - uses: Swatinem/rust-cache@v2.9.3
-      - uses: taiki-e/install-action@v2.90.2
+      - uses: taiki-e/install-action@v2.90.3
         with:
           tool: just,cargo-llvm-cov
       - name: Setup build environment
