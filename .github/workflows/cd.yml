@@ -20,56 +20,29 @@ permissions: {}
 
 jobs:
   build-release-assets:
-    name: Build artifacts for ${{ matrix.job.target }}
-    runs-on: ${{ matrix.job.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        job:
-          - os: ubuntu-24.04
-            target: x86_64-unknown-linux-gnu
-          # - os: ubuntu-24.04-arm
-          #   target: aarch64-unknown-linux-gnu
-          # - os: ubuntu-24.04
-          #   target: i686-unknown-linux-gnu
-          # - os: macos-latest
-          #   target: aarch64-apple-darwin
-          # - os: windows-latest
-          #   target: x86_64-pc-windows-msvc
-          # - os: windows-11-arm
-          #   target: aarch64-pc-windows-msvc
+    name: Build artifacts for x86_64-unknown-linux-gnu
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: cross
       - uses: Swatinem/rust-cache@v2.9.3
         with:
-          key: ${{ matrix.job.target }}
-
-      - name: Install modern bash on macOS
-        if: startsWith(matrix.job.os, 'macos')
-        run: |
-          brew install bash
-          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
-        shell: bash
+          key: x86_64-unknown-linux-gnu
 
       - name: Setup build environment
         run: .github/ci-scripts/setup-build-ubuntu
-        if: matrix.job.os == 'ubuntu-24.04'
 
       - name: Build artifact
-        run: ./scripts/build-dist --target "${{ matrix.job.target }}"
+        run: ./scripts/build-dist --target "x86_64-unknown-linux-gnu"
         shell: bash
 
       - name: Upload binaries as artifacts
         uses: actions/upload-artifact@v7.0.2
         with:
-          name: artifact-${{ matrix.job.target }}
+          name: artifact-x86_64-unknown-linux-gnu
           path: target/dist/*
 
   release:

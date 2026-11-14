@@ -1,0 +1,5 @@
+[toolchain]
+# Work around rust-sdl2/rust-sdl2#1520 until the new Cargo build layout is supported.
+channel = "1.99.1"
+profile = "minimal"
+components = ["rustfmt", "clippy"]
