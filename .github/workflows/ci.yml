@@ -17,48 +17,12 @@ env:
 permissions: {}
 
 jobs:
-  set-matrix:
-    runs-on: ubuntu-24.04
-    outputs:
-      rust: ${{ steps.set-values.outputs.rust }}
-      os: ${{ steps.set-values.outputs.os }}
-    steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: stable
-      - uses: Swatinem/rust-cache@v2.9.3
-      - name: Set matrix values
-        id: set-values
-        run: |
-          root_package_id="$(cargo metadata --format-version 1 | jq -cr '.resolve.root')"
-          root_package="$(cargo metadata --format-version 1 | jq -c --arg pkgid "${root_package_id}" '.packages[] | select(.id == $pkgid)')"
-          echo "${root_package}" | jq -c '{ root_package: .name }'
-
-          msrv="$(echo "${root_package}" | jq '.rust_version')"
-          rust="$(echo "[\"stable\", ${msrv}]" | jq -c)"
-          echo "rust=${rust}" >> "$GITHUB_OUTPUT"
-
-          os="$(echo '["ubuntu-24.04"]' | jq -c)"
-          echo "os=${os}" >> "$GITHUB_OUTPUT"
-
-          jq -n --argjson rust "${rust}" --argjson os "${os}" '{ rust: $rust, os: $os }'
-        shell: bash
-
   rustfmt:
     name: Rustfmt
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: [ubuntu-24.04]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
-          components: rustfmt
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just
@@ -67,91 +31,55 @@ jobs:
 
   check:
     name: Check
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: ${{ fromJSON(needs.set-matrix.outputs.rust) }}
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-check
         shell: bash
 
   clippy:
     name: Clippy
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
-          components: clippy
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-clippy
         shell: bash
 
   rustdoc:
     name: Rustdoc
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-rustdoc
         shell: bash
 
   sync-rdme:
     name: Sync Readme
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack,cargo-sync-rdme
@@ -163,18 +91,10 @@ jobs:
 
   machete:
     name: Machete
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-machete
@@ -184,22 +104,13 @@ jobs:
 
   test:
     name: Test
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: ${{ fromJSON(needs.set-matrix.outputs.rust) }}
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
+      - run: rustup install
       - uses: Swatinem/rust-cache@v2.9.3
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-24.04'
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-hack
@@ -208,26 +119,17 @@ jobs:
 
   coverage:
     name: Coverage (test)
-    needs: set-matrix
-    strategy:
-      fail-fast: true
-      matrix:
-        rust: [stable]
-        os: ${{ fromJSON(needs.set-matrix.outputs.os) }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
-          components: llvm-tools-preview
+      - run: rustup install
+      - run: rustup component add llvm-tools-preview
       - uses: Swatinem/rust-cache@v2.9.3
       - uses: taiki-e/install-action@v2.90.2
         with:
           tool: just,cargo-llvm-cov
       - name: Setup build environment
         run: ./.github/ci-scripts/setup-build-ubuntu
-        if: matrix.os == 'ubuntu-24.04'
       - run: just ci-coverage
         shell: bash
       - uses: codecov/codecov-action@v7.1.1
@@ -249,7 +151,6 @@ jobs:
 
   ci-complete:
     needs:
-      - set-matrix
       - rustfmt
       - check
       - clippy
