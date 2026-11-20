@@ -22,7 +22,7 @@ permissions: {}
 jobs:
   security-audit:
     name: cargo-audit / issue reporting
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       issues: write
     steps:
@@ -32,7 +32,7 @@ jobs:
 
   cargo-deny-advisories:
     name: cargo-deny / advisories
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: Swatinem/rust-cache@v2.9.3
@@ -42,7 +42,7 @@ jobs:
 
   cargo-deny-policy:
     name: cargo-deny / bans licenses sources
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: Swatinem/rust-cache@v2.9.3
@@ -58,7 +58,7 @@ jobs:
       - security-audit
       - cargo-deny-advisories
       - cargo-deny-policy
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ always() }}
     steps:
       - name: Audit complete

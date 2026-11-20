@@ -21,7 +21,7 @@ permissions: {}
 jobs:
   build-release-assets:
     name: Build artifacts for x86_64-unknown-linux-gnu
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
       - run: rustup install
@@ -47,7 +47,7 @@ jobs:
 
   release:
     name: Create GitHub release
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - build-release-assets
     permissions:
@@ -73,7 +73,7 @@ jobs:
     needs:
       - build-release-assets
       - release
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ always() }}
     steps:
       - name: CD complete
