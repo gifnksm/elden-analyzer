@@ -7,10 +7,10 @@ use std::{
     sync::Arc,
 };
 
-use chrono::Utc;
 use clap::{CommandFactory as _, Parser as _};
 use clap_complete::{Generator, Shell};
 use color_eyre::eyre::{self};
+use jiff::Timestamp;
 use tracing::level_filters::LevelFilter;
 use tracing_error::ErrorLayer;
 use tracing_indicatif::IndicatifLayer;
@@ -107,8 +107,8 @@ fn init_log(args: LogArgs) -> eyre::Result<()> {
 
     let log_layer = emit_log
         .then(|| -> eyre::Result<_> {
-            let utc = Utc::now();
-            let timestamp = utc.format("%Y-%m-%d_%H-%M-%S");
+            let now = Timestamp::now();
+            let timestamp = now.strftime("%Y-%m-%d_%H-%M-%S");
             let log_path = log_dir.join(format!("{timestamp}.log"));
             fs::create_dir_all(&log_dir)?;
             let log_file = File::create(log_path)?;
