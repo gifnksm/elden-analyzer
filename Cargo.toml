@@ -56,7 +56,7 @@ pkg-fmt = "tgz"
 chrono = "0.4.45"
 clap = { version = "4.6.8", features = ["derive"] }
 clap_complete = "4.6.11"
-clap_complete_nushell = "4.6.2"
+clap_complete_nushell = "4.6.3"
 clap_mangen = "0.3.3"
 color-eyre = "0.6.5"
 elden-analyzer-collections.workspace = true
